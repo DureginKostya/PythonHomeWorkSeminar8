@@ -5,19 +5,27 @@ def import_writing():
     try:
         with open(imp_path.strip(), 'r', encoding='utf-8') as imp_file:
             with open(path_phone_book.strip(), '+a', encoding='utf-8') as phone_book:
-                for writing in imp_file.readlines():
+                for writing in imp_file:
                     phone_book.seek(0)
-                    if writing not in phone_book.read():
+                    if writing not in phone_book:
                         phone_book.write(writing)
     except:
         print('Указанный файл не найден')
-    return
 
 # def export_writing():
 #     return
 
-# def viewer_writing():
-#     return
+def viewer_writing():
+    try:
+        with open('my_phone_book.txt', 'r', encoding='utf-8') as phone_book:
+            for writing in phone_book:
+                writing = tuple(writing.split('!'))
+                print(f'Фамилия: {writing[0]}')
+                print(f'Имя: {writing[1]}')
+                print(f'Отчество: {writing[2]}')
+                print(f'Номер телефона: {writing[3]}')
+    except:
+        print('Телефонного справочника нет')
 
 # def add_writing():
 #     return

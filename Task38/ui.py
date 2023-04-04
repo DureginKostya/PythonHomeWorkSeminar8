@@ -15,9 +15,11 @@ def interface():
     key = hint()
     while key != 'e':        
         if key == 'i':
-            import_writing()   
-        # elif action == 'v':
-        #     viewing_directory()
+            import_writing()
+            print() 
+        elif key == 'v':
+            viewer_writing()
+            print()
         # elif action == 'f':
         #     surname = input('Введите фамилию: ')
         #     find_info_surname(surname)
@@ -36,6 +38,7 @@ def interface():
         #     print('До свидания!!!')
         else:
             print('Введено недопустимое значение')
+            print()
         key = hint()
         if key == 'e':
             print('До свидания!!!')
