@@ -79,22 +79,49 @@ def search_writing(key_search):
     try:
         with open('my_phone_book.txt', 'r', encoding='utf-8') as phone_book:
             result = []
-            for writing in phone_book:
+            for i, writing in enumerate(phone_book):
                 writing = writing.split('!')
                 if value.strip().lower() == writing[ind].strip().lower():
-                    phone_book.tell()
-                    writing.append()
+                    writing.append(i)
                     result.append(tuple(writing))
-                    # print(f'Фамилия: {writing[0]}')
-                    # print(f'Имя: {writing[1]}')
-                    # print(f'Отчество: {writing[2]}')
-                    # print(f'Номер телефона: {writing[3]}')
         return result
     except:
         print('Телефонного справочника нет')
 
-# def change_writing():
-#     return
+def change_writing():
+    return
 
-# def del_writing():
-#     return
+def del_writing(result):
+    number_writing = int(input('Удалить запись №'))
+    ind_line = result[number_writing - 1][4]
+    with open('my_phone_book.txt', 'r+', encoding='utf-8') as phone_book:
+        phone_book.seek(0)
+        phone_book_list = phone_book.readlines()
+        del phone_book_list[ind_line]
+        phone_book.writelines(phone_book_list)
+
+def print_result_search(result):
+    for i, elem in enumerate(result):
+        print(f'Запись №{i + 1} | Фамилия: {elem[0]}')
+        print(f'\t  | Имя: {elem[1]}')
+        print(f'\t  | Отчество: {elem[2]}')
+        print(f'\t  | Номер телефона: {elem[3]}')
+
+def editing_phone_book(key_search):
+    result = search_writing(key_search)
+    if len(result) != 0:
+        print_result_search(result)
+        print('Дальнейшие действия:' + '\n' + 
+            '\t' + '1) удалить найденную запись (введите "sd")' + '\n' +
+            '\t' + '2) изменить найденную запись (введите "md")' + '\n' +
+            '\t' + '3) не редактировать телефонный справочник (введите "e")')
+        perform = input('Выполнить: ')
+        while perform not in ('sd', 'md', 'e'):
+            print('Введена неправильная команда, повторите ввод!!!')
+            perform = input('Выполнить: ')
+        if perform == 'sd':
+            del_writing(result)
+        elif perform == 'md':
+            change_writing(result)
+    else:
+        print('Ничего не найдено!!!')
