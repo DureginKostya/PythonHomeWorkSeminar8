@@ -99,7 +99,10 @@ def change_phone_book(value, ind, ind_chan, number):
         print('Телефонного справочника нет')
 
 def change_writing(list_chan):
-    num_writing = int(input('Изменить запись № '))
+    if len(list_chan) > 1:
+        num_writing = int(input('Изменить запись № '))
+    else:
+        num_writing = 1
     while not 0 < num_writing <= len(list_chan):
         print('Введенной записи нет, повторите ввод!!!')
         num_writing = int(input('Изменить запись № '))
@@ -128,7 +131,10 @@ def change_writing(list_chan):
 
 def del_writing(list_del):
     try:
-        num_writing = int(input('Удалить запись № '))
+        if len(list_del) > 1:            
+            num_writing = int(input('Удалить запись № '))
+        else:
+            num_writing = 1
         while not 0 < num_writing <= len(list_del):
             print('Введенной записи нет, повторите ввод!!!')
             num_writing = int(input('Удалить запись № '))
