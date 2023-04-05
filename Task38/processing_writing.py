@@ -85,16 +85,15 @@ def search_writing(key_search):
 
 def change_phone_book(value, ind, ind_chan, number):
     try:
-        with open('my_phone_book.txt', 'r+', encoding='utf-8') as phone_book:
-            list_phone_book = phone_book.readlines()
-            writing_chan = list_phone_book[ind_chan].split('!')
-            writing_chan[ind] = value
-            writing_chan = '!'.join(writing_chan)
-            list_phone_book[ind_chan] = writing_chan
+        with open('my_phone_book.txt', 'r', encoding='utf-8') as phone_book:
             phone_book.seek(0)
-            for writing in range(len(list_phone_book)):
-                phone_book.write(writing)
-            #phone_book.writelines(list_phone_book)
+            list_phone_book = phone_book.readlines()
+        writing_chan = list_phone_book[ind_chan].split('!')
+        writing_chan[ind] = value
+        writing_chan = '!'.join(writing_chan)
+        list_phone_book[ind_chan] = writing_chan
+        with open('my_phone_book.txt', 'w', encoding='utf-8') as phone_book:
+            phone_book.writelines(list_phone_book)
         print(f'Запись № {number} изменена')
     except:
         print('Телефонного справочника нет')
@@ -125,7 +124,6 @@ def change_writing(list_chan):
             print('''Номер телефона должен содержать только цифры!!!
 Введите повторно номер телефона''')
             num_phone = input_num_phone('Новый номер телефона: ')
-        #num_phone += '\n'
         change_phone_book(num_phone + '\n', 3, ind_chan, num_writing)
 
 def del_writing(list_del):
