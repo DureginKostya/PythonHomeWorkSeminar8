@@ -1,14 +1,14 @@
-def input_surname():
-    return input('Фамилия: ')
+def input_surname(msg):
+    return input(msg)
 
-def input_firstname():
-    return input('Имя: ')
+def input_firstname(msg):
+    return input(msg)
 
-def input_patronymic():
-    return input('Отчество: ')
+def input_patronymic(msg):
+    return input(msg)
 
-def input_num_phone():
-    return input('Номер телефона: ')
+def input_num_phone(msg):
+    return input(msg)
 
 def input_path_file(msg):
     path_file = input(msg)
