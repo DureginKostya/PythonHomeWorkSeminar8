@@ -9,9 +9,9 @@ def import_writing():
                     phone_book.seek(0)
                     if writing not in phone_book:
                         phone_book.write(writing)
-        print('Данные перенесены', end='\n\n')
+        print('Данные перенесены')
     except:
-        print('Указанный файл не найден', end='\n\n')
+        print('Указанный файл не найден')
 
 def export_writing():
     exp_path = input_path_file('Укажите путь и имя файла для экспорта данных: ')
@@ -23,9 +23,9 @@ def export_writing():
                     exp_file.seek(0)
                     if writing not in exp_file:
                         exp_file.write(writing)
-        print('Данные перенесены', end='\n\n')
+        print('Данные перенесены')
     except:
-        print('Указанный файл не найден', end='\n\n')
+        print('Указанный файл не найден')
 
 def viewer_writing():
     try:
@@ -35,7 +35,7 @@ def viewer_writing():
                 list_viewer.append(tuple(writing.split('!')))
             print_result_search(list_viewer)
     except:
-        print('Телефонного справочника нет', end='\n\n')
+        print('Телефонного справочника нет')
 
 def add_writing(key_add):
     try:
@@ -57,9 +57,8 @@ def add_writing(key_add):
                                           'Введена некорректная команда, повторите ввод!!!')
                 if sequel == 'no':
                     key_add = False
-                print()
     except:
-        print('Телефонного справочника нет', end='\n\n')  
+        print('Телефонного справочника нет')  
 
 def search_writing(key_search):
     try:
@@ -82,7 +81,7 @@ def search_writing(key_search):
                     list_search.append(tuple(writing))
         return list_search
     except:
-        print('Телефонного справочника нет', end='\n\n')
+        print('Телефонного справочника нет')
 
 def change_phone_book(value, ind, ind_chan, number):
     try:
@@ -93,10 +92,12 @@ def change_phone_book(value, ind, ind_chan, number):
             writing_chan = '!'.join(writing_chan)
             list_phone_book[ind_chan] = writing_chan
             phone_book.seek(0)
-            phone_book.writelines(list_phone_book)
-        print(f'Запись {number} изменена', end='\n\n')
+            for writing in range(len(list_phone_book)):
+                phone_book.write(writing)
+            #phone_book.writelines(list_phone_book)
+        print(f'Запись № {number} изменена')
     except:
-        print('Телефонного справочника нет', end='\n\n')
+        print('Телефонного справочника нет')
 
 def change_writing(list_chan):
     num_writing = int(input('Изменить запись № '))
@@ -109,7 +110,7 @@ def change_writing(list_chan):
           '\t' + '2) "fn" - имя' + '\n' +
           '\t' + '3) "pa" - отчество' + '\n' +
           '\t' + '4) "nt" - номер телефона')
-    perform = input('Выполнить: ')
+    perform = input('Выполнить команду: ')
     perform = checking_command(perform, ('sn', 'fn', 'pa', 'nt'), \
                                 'Введена некорректная команда, повторите ввод!!!')
     if perform == 'sn':
@@ -124,8 +125,8 @@ def change_writing(list_chan):
             print('''Номер телефона должен содержать только цифры!!!
 Введите повторно номер телефона''')
             num_phone = input_num_phone('Новый номер телефона: ')
-        num_phone += '\n'
-        change_phone_book(num_phone, 3, ind_chan, num_writing)
+        #num_phone += '\n'
+        change_phone_book(num_phone + '\n', 3, ind_chan, num_writing)
 
 def del_writing(list_del):
     try:
@@ -140,17 +141,16 @@ def del_writing(list_del):
         del list_phone_book[ind_del]
         with open('my_phone_book.txt', 'w', encoding='utf-8') as phone_book:
             phone_book.writelines(list_phone_book)
-        print(f'Запись № {num_writing} удалена', end='\n\n')
+        print(f'Запись № {num_writing} удалена')
     except:
-        print('Телефонного справочника нет', end='\n\n')
+        print('Телефонного справочника нет')
 
 def hint_edit():
     print('Дальнейшие действия:' + '\n' + 
           '\t' + '1) "sd" - удалить запись' + '\n' +
           '\t' + '2) "md" - изменить запись' + '\n' +
           '\t' + '3) "e" - выйти без редактирования телефонного справочника') 
-    print() 
-    return input('Выполнить: ').lower()
+    return input('Выполнить команду: ').lower()
 
 def editing_phone_book(key_search):
     list_edit = search_writing(key_search)
@@ -164,12 +164,12 @@ def editing_phone_book(key_search):
         elif perform == 'md':
             change_writing(list_edit)
     else:
-        print('Ничего не найдено!!!', end='\n\n')
+        print('Ничего не найдено!!!')
 
 def checking_command(cmd, condition, msg):
     while cmd not in condition:
         print(msg)
-        cmd = input('Выполнить: ')
+        cmd = input('Выполнить команду: ')
     return cmd
 
 def print_result_search(result):
